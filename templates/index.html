@@ -1,0 +1,49 @@
+{% extends "base.html"%}
+{% block conteudo %}
+  <header>
+    <h2 class=" fs-1 text-center">Bem-Vindo ao seu site de compras favorito</h2>
+    <h4 class="text-capitalize">Aqui Voçê encontra diversos produtos, desde brinquedos até eletronicos</h4>
+    <p class="fst-italic text-capitalize">Confira nossos produtos e serviços</p>
+  </header>
+
+  <main class="col-sm-8">
+    {%if produtos|length > 0%}
+        <h5 class="fst-italic text-capitalize">Produtos em promoção</h5>
+    {%endif%}
+    <div class="col-sm-8 loja-colecao">
+      <div class="loja-item">
+          <div class="row ">
+              {% for produto in produtos %}
+                  <div class="col-md-4 card m-1">
+                      <div class="thumbnail">
+                          <a href="{{ produto.get_absolute_url }}">
+                              <img src="
+                                  {% if produto.imagem %}
+                                      {{produto.imagem.url}}
+                                  {% else %}
+                                      {% static 
+                                          'img/default.jpg' %}
+                                  {% endif %}"
+                                  alt="imagem de {{produto.nome}}"
+                                  style="height: 130px; 
+                                      width: auto"/ class="card-img-top">
+                          </a>
+                          <div class="caption">
+                              <h3 class="text-center">
+                                  <a href="
+                                      {{produto.get_absolute_url}}" class="nav-link active">
+                                      <h5 class="card-title">{{produto.nome}}</h5>
+                                  </a>
+                              </h3>
+                              <p class="text-center">
+                                  R$ {{produto.preco}}
+                              </p>
+                          </div>
+                      </div>
+                  </div>
+              {% endfor %}
+          </div>
+      </div>
+  </div>
+  </main>
+{% endblock conteudo %}
